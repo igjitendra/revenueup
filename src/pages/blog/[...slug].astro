@@ -1,0 +1,9 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+export async function getStaticPaths(){const posts=await getCollection('blog',({data})=>!data.draft);return posts.map(post=>({params:{slug:post.id},props:{post}}))}
+const {post}=Astro.props;const {Content,headings}=await render(post);
+---
+<Base title={post.data.seoTitle||`${post.data.title} — RevenueUp`} description={post.data.seoDescription||post.data.description} path={`/blog/${post.id}/`}>
+<article class="article-page"><header class="article-header"><div class="container article-head-grid"><div><a class="back" href="/blog">← All insights</a><span class="eyebrow">{post.data.category}</span><h1>{post.data.title}</h1><p>{post.data.description}</p><div class="post-meta"><span>{post.data.publishDate.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'})}</span><span>{post.data.author}</span><span>{post.data.tags.join(' · ')}</span></div></div><div class="article-art"><span>REVENUEUP<br/>INSIGHT</span><b>R↗</b><i></i></div></div></header><div class="container article-layout"><aside><span>IN THIS ARTICLE</span>{headings.filter(h=>h.depth<=3).map(h=><a href={`#${h.slug}`}>{h.text}</a>)}</aside><div class="article-content"><Content/></div></div></article>
+</Base>
