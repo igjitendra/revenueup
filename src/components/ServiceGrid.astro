@@ -1,0 +1,5 @@
+---
+import {services} from '../data/site';
+const {limit=6}=Astro.props;
+---
+<div class="service-grid">{services.slice(0,limit).map((s,i)=><a class="service-card reveal" style={'--delay:'+i*60+'ms'} href={'/services/'+s.slug}><div class="service-icon">{s.icon}</div><span class="number">0{i+1}</span><h3>{s.title}</h3><p>{s.short}</p><ul>{s.bullets.slice(0,3).map(b=><li>{b}</li>)}</ul><b class="text-link">Explore service <span>↗</span></b></a>)}</div>

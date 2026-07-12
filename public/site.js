@@ -1,0 +1,3 @@
+const menu=document.querySelector('.menu-button'),nav=document.querySelector('nav');if(menu)menu.addEventListener('click',()=>{const x=menu.getAttribute('aria-expanded')==='true';menu.setAttribute('aria-expanded',String(!x));nav.classList.toggle('open')});
+const bar=document.querySelector('.progress');addEventListener('scroll',()=>{const d=document.documentElement;bar.style.transform=`scaleX(${d.scrollTop/(d.scrollHeight-d.clientHeight)})`},{passive:true});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.12});document.querySelectorAll('.reveal').forEach(x=>io.observe(x));
